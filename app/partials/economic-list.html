@@ -11,9 +11,9 @@
       <!--Body content-->
 
       <ul class="economicCharts">
-        <li ng-repeat="series in [0,1,2]" class="thumbnail">
-          <simple-line data="economicSeries" width="400" height="200"></simple-line>
-          <div>{{ economicSeries.date }} </div>
+        <li ng-repeat="series in seriesList" class="thumbnail">
+          <div>{{ series }}</div>
+          <nvsimple-line data="economicSeries[series]" info="{{series}}" width="600" height="300"></nvsimple-line>
         </li>
       </ul>
 

@@ -7,6 +7,8 @@ var economicsControllers = angular.module('economicsControllers', []);
 economicsControllers.controller('EconomicListCtrl', ['$scope', '$routeParams', '$http',
   function ($scope, $routeParams, $http) {
     
+    $scope.seriesList = ['pce_avghr_series', 'pce_government_rate'];
+
     var path = $routeParams.year + '/' + $routeParams.month;
     var endpoint = 'http://localhost:5000/' + path;  
     $http.get(endpoint).success(function(data) {
