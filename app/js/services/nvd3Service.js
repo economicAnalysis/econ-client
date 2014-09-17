@@ -1,11 +1,11 @@
 (function(angular){
   "use strict";
-    econApp.factory('d3Service', ['$document', '$q', '$rootScope',
+    econApp.factory('nvd3Service', ['$document', '$q', '$rootScope',
       function($document, $q, $rootScope) {
         var d = $q.defer();
         function onScriptLoad() {
           // Load client in the browser
-          $rootScope.$apply(function() { d.resolve(window.d3); });
+          $rootScope.$apply(function() { d.resolve(window.nv); });
         }
         // Create a script tag with d3 as the source
         // and call our onScriptLoad callback when it
@@ -15,7 +15,7 @@
         var scriptTag = $document[0].createElement('script');
         scriptTag.type = 'text/javascript'; 
         scriptTag.async = true;
-        scriptTag.src = 'lib/d3.v3.js';
+        scriptTag.src = 'lib/nv.d3.js';
         scriptTag.onreadystatechange = function () {
           if (this.readyState == 'complete') onScriptLoad();
         };
@@ -25,7 +25,7 @@
         bodyScript.appendChild(scriptTag);
  
         return {
-          d3: function() { return d.promise; }
+          nvd3: function() { return d.promise; }
         };
   }]);
 }(angular));
