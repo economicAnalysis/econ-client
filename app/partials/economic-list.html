@@ -3,8 +3,12 @@
   <div class="row">
     <div class="col-md-2">
       <!--Sidebar content-->
-      Search: <input ng-model="query">
-      
+      <ul class="economicCharts">
+        <li ng-repeat="series in seriesList" class="thumbnail">
+          <a ng-click="scrollTo($index)">{{series}}</a>
+        </li>
+      </ul>
+
 
     </div>
     <div class="col-md-10">
@@ -12,8 +16,7 @@
 
       <ul class="economicCharts">
         <li ng-repeat="series in seriesList" class="thumbnail">
-          <div>{{ series }}</div>
-          <nvsimple-line data="economicSeries[series]" info="{{series}}" width="600" height="300"></nvsimple-line>
+          <nvsimple-line id="{{$index}}" data="economicSeries[series]" info="{{series}}" width="600" height="300"></nvsimple-line>
         </li>
       </ul>
 

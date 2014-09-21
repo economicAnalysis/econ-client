@@ -1,34 +1,45 @@
-  var nvDataBuilder = function (data){
-  var colors = ['#1B9D77', '#2AF200'];
+var PRIORITIES = {
+  unemployment_rate_value: 40,
+  employment_rate_value: 40,
+  pce_value: 30,
+  govrt_rate_value: 20,
+  pce_deflator_value: 10,
+  treasury_10yr_value: 10,
+  prime_rate_value: 10, 
+  average_hour_value: 0,
+  nominal_avghr_value: 0,
+  deflated_avghr_value: 0,
+  domestic_debt_value: 0
+}
 
-  
+var SERIES_TITLES = {
+  pce_avghr: 'Avg. Hourly Earnings lead changes in Real PCE',
+  pce_government_rate: 'Changes in Government Rate leads changes in Real PCE',
+  deflated_vs_nominal_avghr: 'Affect of Inflation on Hourly Earnings',
+  federal_funds_vs_pce_deflator: 'Inflation leads changes in Federal Funds Rate',
+  unemployment_vs_pce: 'Change in Real PCE leads Unemployment Rate',
+  employment_vs_pce: 'Change in Real PCE leads Employment Rate',
+  domestic_debt_vs_treasury: 'Change in Domestic Debt leads 10YR Treasury Yield',
+  domestic_debt_vs_prime: 'Change in Domestic Debt lead Prime Rate'
+}
 
-  var titles = {
-    average_hour_value: 'Average Hourly Earnings',
-    pce_value: 'Real PCE'
-  };
-  var colorIndex = 0;
-  var results = [];
-  var seriesNames = Object.keys(data[0]);
-  var dateIndex = seriesNames.indexOf('date');
-  seriesNames.splice(dateIndex,1);
-  console.log('seriesNames', seriesNames);
-  for(var i = 0; i< seriesNames.length;i++){
-    var result = {};
-    result.key = titles[seriesNames[i]];
-    result.color = colors[colorIndex];
-    colorIndex++;
-    var values = data.map(function (record){
-      var transformedRecord = {};
-      transformedRecord.x = record.date;
-      transformedRecord.y = record[seriesNames[i]];
-      return transformedRecord;
-    });
-    result.values = values
-    results.push(result); 
-  }
-  return results;
+var TITLES = {
+  average_hour_value: 'YoY change in Average Hourly Earnings',
+  pce_value: 'YoY change in Real PCE',
+  govrt_rate_value: 'YoY change in Federal Funds Rate',
+  nominal_avghr_value: 'YoY change in nominal Average Hourly Earnings',
+  deflated_avghr_value: 'YoY change in deflated Average Hourly Earnings',
+  pce_deflator_value: 'YoY change in PCE Deflator (i.e. inflation)',
+  unemployment_rate_value: 'YoY change in Unemployment Rate (inverted)',
+  employment_rate_value: 'YoY change in Employment Rate',
+  domestic_debt_value: 'YoY change in Domestic Debt (non-financial)',
+  treasury_10yr_value: '10YR Treasury Yield',
+  prime_rate_value: 'Prime Rate'
 };
+
+var customCompare = function (x, y){
+  return PRIORITIES[x] - PRIORITIES[y];
+}
 
 var titleFormatter = function (string){
   var results = [];
@@ -39,6 +50,177 @@ var titleFormatter = function (string){
   }
   return results.join('');
 };
+
+/**
+ * 
+ @param {array} data - takes an array of series names and put them in the 
+                       preferred order
+                       Right now this is a hack to sort a single series
+**/ 
+ 
+var putSeriesInDisplayOrder = function (data, seriesName){
+  switch (seriesName){
+    case 'deflated_vs_nominal_avghr':
+      return data.sort(customCompare);
+    case 'federal_funds_vs_pce_deflator':
+      return data.sort(customCompare);
+    case 'unemployment_vs_pce':
+      return data.sort(customCompare);
+    case 'employment_vs_pce':
+      return data.sort(customCompare);
+    case 'domestic_debt_vs_treasury':
+      return data.sort(customCompare);
+    case 'domestic_debt_vs_prime':
+      return data.sort(customCompare);
+    default:
+      return data
+  }
+};
+
+
+/**
+ * 
+ @{param} data -  format [{series0: xxx,
+                           series1: xxx,
+                           series2: xxx,
+                           date: date},
+                           ....]
+ mutate to - [{name: name,
+               color: 0xxxx,
+               values: [{x: date, y: value},
+                        {x: date, y: value},
+                        ...]
+
+ */
+
+var nvDataBuilder = function (data, seriesName){
+  var colors = ['#1B9D77', '#2AF200','#ff7f0e'];
+
+  
+
+
+  var colorIndex = 0;
+  var results = [];
+  var seriesNames = Object.keys(data[0]);
+  var dateIndex = seriesNames.indexOf('date');
+  seriesNames.splice(dateIndex,1);
+  seriesNames = putSeriesInDisplayOrder(seriesNames, seriesName);
+ 
+  
+  for(var i = 0; i< seriesNames.length;i++){
+    var result = {};
+    result.key = TITLES[seriesNames[i]];
+    result.color = colors[colorIndex];
+    colorIndex++;
+    var values = data.map(function (record){
+      var transformedRecord = {};
+      transformedRecord.x = record.date;
+      transformedRecord.y = record[seriesNames[i]];
+      return transformedRecord;
+    });
+    result.values = values
+    results.push(result);
+  }
+  return results;
+};
+
+
+
+/**
+ *  Formats data for charting
+  
+    Reformats the data into a scale that is appropriate for graphing
+
+    @{array} data - series data in the format [ {date: xxx, 
+                                              title0: value0, 
+                                              title1: value1},
+                                              ...]
+*/  
+
+var formatData = function (data, seriesName){
+  
+    // format the data depending on the series 
+    // $scope.seriesList = ['pce_avghr', 'pce_government_rate'];
+
+  switch(seriesName){
+    case 'pce_avghr':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.pce_value = record.pce_value / 100;
+          record.average_hour_value = record.average_hour_value / 100;
+        });
+      }
+    case 'pce_government_rate':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.pce_value = record.pce_value/100;
+          record.govrt_rate_value = -1*record.govrt_rate_value/100;
+        });
+      }
+    case 'deflated_vs_nominal_avghr':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.nominal_avghr_value = record.nominal_avghr_value/100;
+          record.deflated_avghr_value = record.deflated_avghr_value/100;
+          record.pce_deflator_value = record.pce_deflator_value/100;
+        });
+      }
+    case 'federal_funds_vs_pce_deflator':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.govrt_rate_value = record.govrt_rate_value/100;
+          record.pce_deflator_value = record.pce_deflator_value/100;
+        });
+      }
+    case 'unemployment_vs_pce':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.unemployment_rate_value = -1*record.unemployment_rate_value/100;
+          record.pce_value = record.pce_value/100;
+        });
+      }
+    case 'employment_vs_pce':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.employment_rate_value = record.employment_rate_value/100;
+          record.pce_value = record.pce_value/100;
+        });
+      }
+    case 'domestic_debt_vs_treasury':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.domestic_debt_value = record.domestic_debt_value/100;
+          record.treasury_10yr_value = record.treasury_10yr_value/100;
+        });
+      }
+    case 'domestic_debt_vs_prime':
+      if(!data.formatted){
+        data.formatted = true;
+        data.forEach( function (record) { 
+          record.date = new Date(record.date);
+          record.domestic_debt_value = record.domestic_debt_value/100;
+          record.prime_rate_value = record.prime_rate_value/100;
+        });
+      }
+    default:
+      //pass
+  }
+
+}
 
 /**
   Notice the call to directive
@@ -83,26 +265,24 @@ econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', function(d3Servic
         scope.$watch('data', function (data){
 
           if(!data){ return; }
-            
+          
+          formatData(data, scope.chartTitle);
           drawChart(data);
           
         });
 
+        /**
+          @{array} data - series data in the format [ {date: xxx, 
+                                                       title0: value0, 
+                                                       title1: value1}]
+        */
+
         var drawChart = function(data){
-          
-          var seriesTitle = {
-            pce_avghr: 'Avg. Hourly Earnings lead changes in Real PCE'
-          }
 
           var chartClass = titleFormatter(scope.chartTitle);
 
-          data.forEach( function (record) { 
-            record.date = new Date(record.date);
-            record.pce_value = record.pce_value/100;
-            record.average_hour_value = record.average_hour_value / 100;
-          });
 
-          data = nvDataBuilder(data);
+          data = nvDataBuilder(data, scope.chartTitle);
 
           nv.addGraph(function() {
             var chart = nv.models.lineChart()
@@ -125,6 +305,7 @@ econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', function(d3Servic
               .axisLabel('Year over year change')
               .tickFormat(d3.format('%'));
 
+
             /* Done setting the chart up? Time to render it!*/
              // create the main svg well be drawing onto
             d3.select(element[0])
@@ -144,7 +325,7 @@ econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', function(d3Servic
             .attr("x", (margins.left))             
             .attr("y", margins.top)
             .attr("text-anchor", "left")  
-            .text(seriesTitle[scope.chartTitle]);
+            .text(SERIES_TITLES[scope.chartTitle]);
                  
             //Update the chart when window resizes.
             nv.utils.windowResize(function() { chart.update() });
