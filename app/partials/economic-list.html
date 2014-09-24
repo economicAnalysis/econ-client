@@ -3,12 +3,13 @@
   <div class="row">
     <div class="col-md-2">
       <!--Sidebar content-->
-      <ul class="economicCharts">
-        <li ng-repeat="series in seriesList" class="thumbnail">
-          <a ng-click="scrollTo($index)">{{series}}</a>
-        </li>
-      </ul>
-
+      <div class="well bs-sidebar affix" id="sidebar">
+        <ul class="nav nav-pills nav-stacked">
+          <li ng-repeat="series in seriesList" class="thumbnail">
+            <a ng-click="scrollTo($index)">{{series}}</a>
+          </li>
+        </ul>
+      </div> <!--well bs-sidebar affix-->
 
     </div>
     <div class="col-md-10">
