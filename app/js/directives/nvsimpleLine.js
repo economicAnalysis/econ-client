@@ -137,7 +137,7 @@ var nvDataBuilder = function (data, seriesName){
                                               ...]
 */  
 
-var formatData = function (data, seriesName){
+var oldformatData = function (data, seriesName){
   
     // format the data depending on the series 
     // $scope.seriesList = ['pce_avghr', 'pce_government_rate'];
@@ -219,7 +219,6 @@ var formatData = function (data, seriesName){
     default:
       //pass
   }
-
 }
 
 /**
@@ -237,7 +236,8 @@ var formatData = function (data, seriesName){
 */
 
 
-econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', function(d3Service, nvd3Service){
+econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', 'formatData', 
+                  function(d3Service, nvd3Service,formatData){
     
 
   // directives have a link function which is essentially a "constructor"
@@ -266,7 +266,7 @@ econApp.directive('nvsimpleLine', ['d3Service', 'nvd3Service', function(d3Servic
 
           if(!data){ return; }
           
-          formatData(data, scope.chartTitle);
+          formatData.formatData(data, scope.chartTitle);
           drawChart(data);
           
         });
