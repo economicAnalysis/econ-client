@@ -14,7 +14,8 @@
                           ...]
 */
 
-econApp.factory('nvDataBuilder', function(){
+econApp.factory('nvDataBuilder', ['orderSeries', 'constants', 
+                function (orderSeries, constants){
   var dataBuilder = {};
 
   dataBuilder.nvDataBuilder = function (data, seriesName){
@@ -25,12 +26,12 @@ econApp.factory('nvDataBuilder', function(){
     var seriesNames = Object.keys(data[0]);
     var dateIndex = seriesNames.indexOf('date');
     seriesNames.splice(dateIndex,1);
-    seriesNames = putSeriesInDisplayOrder(seriesNames, seriesName);
+    seriesNames = orderSeries.putSeriesInDisplayOrder(seriesNames, seriesName);
    
     
     for(var i = 0; i< seriesNames.length;i++){
       var result = {};
-      result.key = TITLES[seriesNames[i]];
+      result.key = constants.TITLES[seriesNames[i]];
       result.color = colors[colorIndex];
       colorIndex++;
       var values = data.map(function (record){
@@ -46,4 +47,4 @@ econApp.factory('nvDataBuilder', function(){
   };
   
   return dataBuilder;
-});
+}]);

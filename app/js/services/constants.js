@@ -1,9 +1,17 @@
 'use strict';
 
-econApp.factory('Constants', function (){
+econApp.factory('constants', function (){
 
   var constants = {};
 
+  constants.SERIES_LIST = ['pce_avghr', 
+    'pce_government_rate', 
+    'deflated_vs_nominal_avghr',
+    'federal_funds_vs_pce_deflator',
+    'unemployment_vs_pce',
+    'employment_vs_pce',
+    'domestic_debt_vs_treasury',
+    'domestic_debt_vs_prime'];
 
   constants.SERIES_TITLES = {
     pce_avghr: 'Avg. Hourly Earnings lead changes in Real PCE',
@@ -15,6 +23,17 @@ econApp.factory('Constants', function (){
     domestic_debt_vs_treasury: 'Change in Domestic Debt leads 10YR Treasury Yield',
     domestic_debt_vs_prime: 'Change in Domestic Debt lead Prime Rate'
   }
+  
+  constants.ASIDE_TITLES = {
+    pce_avghr: 'Avg. Hour vs. Real PCE',
+    pce_government_rate: 'Fed. Funds vs Real PCE',
+    deflated_vs_nominal_avghr: 'Avg. Hourly Earnings',
+    federal_funds_vs_pce_deflator: 'Fed. Funds vs. Inflation',
+    unemployment_vs_pce: 'Real PCE vs. Unemployment',
+    employment_vs_pce: 'Real PCE vs. Employment',
+    domestic_debt_vs_treasury: 'Domestic Debt vs 10YR Treasury',
+    domestic_debt_vs_prime: 'Domestic Debt vs. Prime Rate'
+  };
 
   constants.TITLES = {
     average_hour_value: 'YoY change in Average Hourly Earnings',

@@ -11,8 +11,8 @@ econApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: 'partials/economic-list.html',
-        controller: 'EconomicListCtrl'
+        templateUrl: 'partials/economic-front.html',
+        controller: 'EconomicFrontCtrl'
       }).
       when('/:year/:month', {
         templateUrl: 'partials/economic-list.html',

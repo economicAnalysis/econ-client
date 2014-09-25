@@ -1,5 +1,16 @@
 'use strict';
 
+/**
+ *  Formats data for charting
+  
+    Reformats the data into a scale that is appropriate for graphing
+
+    @{array} data - series data in the format [ {date: xxx, 
+                                              title0: value0, 
+                                              title1: value1},
+                                              ...]
+*/ 
+
 econApp.factory('formatData', function(){
   var formatter = {};
 
