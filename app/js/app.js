@@ -3,6 +3,7 @@
 /* App Module */
 
 var econApp = angular.module('econApp', [
+  //'ui.router',
   'ngRoute',
   'economicsControllers'
 ]);
