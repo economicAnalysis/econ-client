@@ -33,16 +33,15 @@ econApp.config(['$stateProvider', '$urlRouterProvider',
       .state('detail', {
         url: '/:year/:month',
         views: {
-          '': {templateUrl: 
-            'main-panel.html'
+          '': {templateUrl: 'partials/main-panel.html'
           },
-          'columnOne@home': { 
-            template:'partials/economic-front.html',
-            controller: 'EconomicFrontCtrl'
+          'columnOne@detail': { 
+            templateUrl:'partials/detail-aside.html',
+            controller: 'DetailAsideCtrl'
           },
-          'columnTwo@home': { 
-            template:'partials/economic-front.html',
-            controller: 'EconomicFrontCtrl'
+          'columnTwo@detail': { 
+            templateUrl:'partials/economic-front.html',
+            controller: 'EconomicListCtrl'
           }
         }
       });

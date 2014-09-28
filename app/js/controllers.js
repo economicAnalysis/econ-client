@@ -4,14 +4,14 @@
 
 var economicsControllers = angular.module('economicsControllers', []);
 
-economicsControllers.controller('EconomicListCtrl', ['$scope', '$routeParams', 
+economicsControllers.controller('EconomicListCtrl', ['$scope', '$stateParams', 
                                 '$http', '$anchorScroll', '$location','constants',
-  function ($scope, $routeParams, $http, $anchorScroll, $location, constants) {
+  function ($scope, $stateParams, $http, $anchorScroll, $location, constants) {
     
     $scope.seriesList = constants.SERIES_LIST;
     $scope.asideTitles = constants.ASIDE_TITLES;
 
-    var path = $routeParams.year + '/' + $routeParams.month;
+    var path = $stateParams.year + '/' + $stateParams.month;
     var endpoint = 'http://localhost:5000/' + path;  
 
     $scope.path = path;
@@ -77,6 +77,7 @@ economicsControllers.controller('FrontAsideCtrl', ['$scope', '$http',
     
 
     $http.get(endpoint).success(function(data) {
+
       var years = Object.keys(data);
       var _idIndex = years.indexOf('_id');
       years.splice(_idIndex,1);
@@ -110,5 +111,15 @@ economicsControllers.controller('FrontAsideCtrl', ['$scope', '$http',
       $scope.expandedYears[this.year] = !$scope.expandedYears[this.year];
       
     };
+
+  }]);
+
+
+economicsControllers.controller('DetailAsideCtrl', ['$scope','constants',
+  function ($scope, constants) {
+    
+    $scope.seriesList = constants.SERIES_LIST;
+    $scope.asideTitles = constants.ASIDE_TITLES;
+
 
   }]);

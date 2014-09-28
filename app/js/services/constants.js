@@ -76,20 +76,20 @@ econApp.factory('constants', function (){
   constants.NUMBER_TO_MONTH[10] = 'October';
   constants.NUMBER_TO_MONTH[11] = 'November';
   constants.NUMBER_TO_MONTH[12] = 'December';
- 
+
   constants.MONTH_TO_NUMBER = [];
-  constants.MONTH_TO_NUMBER['January'] = 1;
-  constants.MONTH_TO_NUMBER['February'] = 2;
-  constants.MONTH_TO_NUMBER['March'] = 3;
-  constants.MONTH_TO_NUMBER['April'] = 4;
-  constants.MONTH_TO_NUMBER['May'] = 5;
-  constants.MONTH_TO_NUMBER['June'] = 6;
-  constants.MONTH_TO_NUMBER['July'] = 7;
-  constants.MONTH_TO_NUMBER['August'] = 8;
-  constants.MONTH_TO_NUMBER['September'] = 9;
-  constants.MONTH_TO_NUMBER['October'] = 10;
-  constants.MONTH_TO_NUMBER['November'] = 11;
-  constants.MONTH_TO_NUMBER['December'] = 12;
+  constants.MONTH_TO_NUMBER['January'] = '01';
+  constants.MONTH_TO_NUMBER['February'] = '02';
+  constants.MONTH_TO_NUMBER['March'] = '03';
+  constants.MONTH_TO_NUMBER['April'] = '04';
+  constants.MONTH_TO_NUMBER['May'] = '05';
+  constants.MONTH_TO_NUMBER['June'] = '06';
+  constants.MONTH_TO_NUMBER['July'] = '07';
+  constants.MONTH_TO_NUMBER['August'] = '08';
+  constants.MONTH_TO_NUMBER['September'] = '09';
+  constants.MONTH_TO_NUMBER['October'] = '10';
+  constants.MONTH_TO_NUMBER['November'] = '11';
+  constants.MONTH_TO_NUMBER['December'] = '12';
 
 
 

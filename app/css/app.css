@@ -78,6 +78,20 @@ h1 {
   border-bottom: 1px solid gray;
 }
 
-ul.archive yearlist {
-  display: inline;
+li.yearlist {
+  list-style-type: none;
+}
+
+ul.monthlist {
+  padding-left: 15px;
+  margin: 0px;
+}
+
+
+li.monthlist {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
 }
