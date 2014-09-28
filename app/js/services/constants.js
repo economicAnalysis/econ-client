@@ -63,5 +63,37 @@ econApp.factory('constants', function (){
     domestic_debt_value: 0
   };
 
+  constants.NUMBER_TO_MONTH = [];
+  constants.NUMBER_TO_MONTH[1]  = 'January';
+  constants.NUMBER_TO_MONTH[2]  = 'February';
+  constants.NUMBER_TO_MONTH[3]  = 'March';
+  constants.NUMBER_TO_MONTH[4]  = 'April';
+  constants.NUMBER_TO_MONTH[5]  = 'May';
+  constants.NUMBER_TO_MONTH[6]  = 'June';
+  constants.NUMBER_TO_MONTH[7]  = 'July';
+  constants.NUMBER_TO_MONTH[8]  = 'August';
+  constants.NUMBER_TO_MONTH[9]  = 'September';
+  constants.NUMBER_TO_MONTH[10] = 'October';
+  constants.NUMBER_TO_MONTH[11] = 'November';
+  constants.NUMBER_TO_MONTH[12] = 'December';
+ 
+  constants.MONTH_TO_NUMBER = [];
+  constants.MONTH_TO_NUMBER['January'] = 1;
+  constants.MONTH_TO_NUMBER['February'] = 2;
+  constants.MONTH_TO_NUMBER['March'] = 3;
+  constants.MONTH_TO_NUMBER['April'] = 4;
+  constants.MONTH_TO_NUMBER['May'] = 5;
+  constants.MONTH_TO_NUMBER['June'] = 6;
+  constants.MONTH_TO_NUMBER['July'] = 7;
+  constants.MONTH_TO_NUMBER['August'] = 8;
+  constants.MONTH_TO_NUMBER['September'] = 9;
+  constants.MONTH_TO_NUMBER['October'] = 10;
+  constants.MONTH_TO_NUMBER['November'] = 11;
+  constants.MONTH_TO_NUMBER['December'] = 12;
+
+
+
+  constants.BASE_URL = 'http://localhost:5000';
+
   return constants;
 });
