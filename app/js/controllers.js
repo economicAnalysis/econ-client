@@ -58,7 +58,7 @@ economicsControllers.controller('EconomicFrontCtrl', ['$scope', '$routeParams',
       locationId = '' + locationId; // cast to string
       $location.hash(locationId);
 
-        // call $anchorScroll()
+      // call $anchorScroll()
       $anchorScroll();
       //reset to old to keep any additional routing logic from kicking in
       $location.hash(old);
@@ -115,11 +115,24 @@ economicsControllers.controller('FrontAsideCtrl', ['$scope', '$http',
   }]);
 
 
-economicsControllers.controller('DetailAsideCtrl', ['$scope','constants',
-  function ($scope, constants) {
+economicsControllers.controller('DetailAsideCtrl', ['$scope', '$anchorScroll',
+                                '$location', 'constants',
+  function ($scope, $anchorScroll, $location, constants) {
     
     $scope.seriesList = constants.SERIES_LIST;
     $scope.asideTitles = constants.ASIDE_TITLES;
+
+    $scope.scrollTo = function (locationId){
+      var old = $location.hash();
+      console.log('scrollTo triggered', locationId);  
+      locationId = '' + locationId; // cast to string
+      $location.hash(locationId);
+
+        // call $anchorScroll()
+      $anchorScroll();
+      //reset to old to keep any additional routing logic from kicking in
+      $location.hash(old);
+    }
 
 
   }]);

@@ -1,27 +1,7 @@
- <div class="col-md-2">
-      <!--Sidebar content-->
-   
-      <div class="bs-sidebar" id="sidebar">
-        <ul class="archive" id="sidebar" list-style-type="none" 
-            ng-repeat="year in years">
-            <li class="yearlist" >
-              <span class="expandCollapseBox"  ng-click="expandList($event)">
-                <span ng-if="!expandedYears[year]">&#9658;{{year}}</span> 
-                <span ng-if="expandedYears[year]">&#9660;{{year}}</span> 
-              </span>
-              <!-- nested list -->
-              <ul class="monthlist" ng-if="expandedYears[year]" ng-repeat="month in data[year]">
-                <li class="monthlist" display="none">
-                  <a href="#/{{year}}/{{MONTH_TO_NUMBER[month]}}"
-                    pointer="default"
-                    list-style-image="none"
-                  >{{month}}</a>
-                </li>
-              </ul>
-            </li>
-        </ul>
-      </div> <!--well bs-sidebar affix-->
-
-    </div>
-    
-    <!-- <span class='zippy toggle-open'>&#9660;&#160;</span>-->
+<div class="well bs-sidebar affix" id="sidebar">
+  <ul class="nav nav-pills nav-stacked">
+    <li ng-repeat="series in seriesList">
+      <a ng-click="scrollTo($index)">{{asideTitles[series]}}</a>
+    </li>
+  </ul>
+</div> <!--well bs-sidebar affix-->
