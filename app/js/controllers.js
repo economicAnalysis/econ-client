@@ -12,7 +12,7 @@ economicsControllers.controller('EconomicListCtrl', ['$scope', '$stateParams',
     $scope.asideTitles = constants.ASIDE_TITLES;
 
     var path = $stateParams.year + '/' + $stateParams.month;
-    var endpoint = 'http://localhost:5000/' + path;  
+    var endpoint = constants.BASE_URL  + path;  
 
     $scope.path = path;
 
@@ -43,8 +43,14 @@ economicsControllers.controller('EconomicFrontCtrl', ['$scope', '$routeParams',
     $scope.seriesList = constants.SERIES_LIST;
     $scope.asideTitles = constants.ASIDE_TITLES;
 
-    var endpoint = 'http://localhost:5000/';  
+    var timestamp = new Date();
+    var month = timestamp.getMonth() + 1;
+    var year = timestamp.getFullYear();
+    var path = year + "/" + month;
 
+    var endpoint = constants.BASE_URL + path; 
+
+    console.log(endpoint);
    
     $http.get(endpoint).success(function(data) {
       $scope.economicSeries = data;
@@ -72,7 +78,7 @@ economicsControllers.controller('FrontAsideCtrl', ['$scope', '$http',
   function ($scope,  $http, $location, constants, orderNumbers, transformData, $sce) {
     
     var baseUrl = constants.BASE_URL; 
-    var endpoint = baseUrl + '/dates'
+    var endpoint = baseUrl + 'dates'
     $scope.MONTH_TO_NUMBER = constants.MONTH_TO_NUMBER;
     
 

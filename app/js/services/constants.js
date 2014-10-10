@@ -93,7 +93,7 @@ econApp.factory('constants', function (){
 
 
 
-  constants.BASE_URL = 'http://localhost:5000';
+  constants.BASE_URL = 'http://localhost:50001/';
 
   return constants;
 });
