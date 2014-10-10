@@ -13,8 +13,10 @@
   },
   "scripts": {
     "postinstall": "bower install",
-
     "prestart": "npm install",
     "start": "http-server -a 0.0.0.0 -p 8000"
+  },
+  "dependencies": {
+    "express": "^4.9.6"
   }
 }
