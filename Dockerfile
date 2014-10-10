@@ -27,6 +27,8 @@ ADD     ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD     . /src
 RUN     cd /src; npm install
 
+ENV     IN_CONTAINER true
+
 # Expose node and ssh
 EXPOSE  9000 22
 
